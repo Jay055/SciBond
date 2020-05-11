@@ -1,9 +1,7 @@
-// Profile model 
-const mongoose  = require('mongoose'); 
+const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
   user: {
-    // Connect to the user object ID in users created by MongoDBs 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
@@ -27,11 +25,9 @@ const ProfileSchema = new mongoose.Schema({
   bio: {
     type: String
   },
-  // githubusername: {
-  //   type: String
-  // },
-
-  // Change to research 
+  githubusername: {
+    type: String
+  },
   experience: [
     {
       title: {
