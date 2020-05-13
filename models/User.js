@@ -1,5 +1,8 @@
+// Create a user model 
 const mongoose = require('mongoose');
 
+
+// Structure of the user 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,4 +26,5 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
+// export User (modal name, Schema)
 module.exports = User = mongoose.model('user', UserSchema);
