@@ -1,6 +1,6 @@
 // useState hook for updating states 
 import React, {Fragment, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 // import axios from 'axios';
 // connect to redux 
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 
 
 // Destructure register and setAlert from props (linked with the connect())
-const Register = ({register, setAlert}) => {
+const Register = ({register, setAlert, isAuthenticated}) => {
   //formData = state, setFormData = this.setState 
   const [formData, setFormData] = useState({ 
   // Default values 
@@ -34,9 +34,15 @@ const Register = ({register, setAlert}) => {
     if(password === password2){
       // User our register reducer to register user
       register({name, email, password});
+
+     // Redirect if logged in 
+     if(isAuthenticated) {
+      return <Redirect to="/dashboard" /> 
+    }
+
       
   
-
+    
     }else {
       // Call setAlert reducer   from props  
     setAlert('Passwords do not match', 'danger');
@@ -91,10 +97,13 @@ const Register = ({register, setAlert}) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  isAuthenticated:PropTypes.bool.isRequired
 };
 
-
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
 {/* Connect with Redux store, we can acces props.setAlert with this */}
-export default  connect (null, {setAlert, register })( Register); 
+export default  connect (mapStateToProps, {setAlert, register })( Register); 

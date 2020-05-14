@@ -1,6 +1,13 @@
 import React, {Fragment, useState } from 'react';
-import {Link} from 'react-router-dom';
-const Login = () => {
+import {Link, Redirect } from 'react-router-dom';
+import { login } from '../../actions/auth';
+import { connect } from 'react-redux';
+import {setAlert} from '../../actions/alert';
+import PropTypes from 'prop-types';
+
+
+// Destructure isAuthenticated from mapStatetoProps
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({ 
     // Default values
     email:'',
@@ -12,9 +19,16 @@ const Login = () => {
     //On Form Submit 
     const onSubmit = (e) => { 
       e.preventDefault(); 
-      console.log('Success')
-      
+      login({ email, password});
+      console.log('success');
+     
+    };
+
+    // Redirect if logged in 
+    if(isAuthenticated) {
+      return <Redirect to="/dashboard" /> 
     }
+
 
     // Set Input 
     const onChange = (e) => { 
@@ -58,4 +72,20 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
+};
+
+
+// Get values from the state of our auth reducer 
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated 
+
+});
+
+
+
+
+export default connect (mapStateToProps, {setAlert, login })(Login); 
