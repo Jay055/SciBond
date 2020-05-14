@@ -42,7 +42,7 @@ const Login = () => {
           type="password"
           placeholder="Password"
           name="password"
-          value={email}
+          value={password}
           onChange={e => onChange(e)}
           
           required

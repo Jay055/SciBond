@@ -2,8 +2,17 @@
 import React, {Fragment, useState} from 'react';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
+// connect to redux 
+import { connect } from 'react-redux';
+import {setAlert} from '../../actions/alert';
+// Registration Authentication
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types'
 
-const Register = () => {
+
+
+// Destructure register and setAlert from props (linked with the connect())
+const Register = ({register, setAlert}) => {
   //formData = state, setFormData = this.setState 
   const [formData, setFormData] = useState({ 
   // Default values 
@@ -23,31 +32,14 @@ const Register = () => {
   const onSubmit = async e => { 
     e.preventDefault();
     if(password === password2){
-      console.log('success')
-      ////  Register users 
-    // const newUser = { 
-    //   name, 
-    //   email, 
-    //   password 
-    // }
-    // try { 
-    //   const config = { 
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     }
-    //   }
-    //   const body = JSON.stringify(newUser);
-
-    //   const res = await axios.post('/api/users', body, config);
-    //   console.log (res.data);
-
-    // } catch(err){
-    //   console.error(err.response.data);
-    // }
+      // User our register reducer to register user
+      register({name, email, password});
+      
   
 
-    }else if (password !== password2){
-    console.log('Passwords do not match ');
+    }else {
+      // Call setAlert reducer   from props  
+    setAlert('Passwords do not match', 'danger');
   }
 }
 
@@ -58,10 +50,10 @@ const Register = () => {
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
-          <input type="text" placeholder="Name" name="name" value={name}required onChange={e => onChange(e)} />
+          <input type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)} />
         </div>
         <div className="form-group">
-          <input type="email" placeholder="Email Address" name="email" value={email}required onChange={e => onChange(e)}/>
+          <input type="email" placeholder="Email Address" name="email" value={email} onChange={e => onChange(e)}/>
           <small className="form-text"
             >This site uses Gravatar so if you want a profile image, use a
             Gravatar email</small
@@ -72,7 +64,7 @@ const Register = () => {
             type="password"
             placeholder="Password"
             name="password"
-            value={password}required onChange={e => onChange(e)}
+            value={password} onChange={e => onChange(e)}
           />
         </div>
         <div className="form-group">
@@ -80,7 +72,7 @@ const Register = () => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            value={password2}required onChange={e => onChange(e)}
+            value={password2} onChange={e => onChange(e)}
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -90,6 +82,19 @@ const Register = () => {
       </p> 
     </Fragment>
   )
+
+
 }
 
-export default Register;
+
+{/* Set Proptypes to avoid errors  */}
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
+};
+
+
+
+{/* Connect with Redux store, we can acces props.setAlert with this */}
+export default  connect (null, {setAlert, register })( Register); 
