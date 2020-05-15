@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { setAlert } from './alert';
-import { REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED, AUTH_ERROR } from './types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, USER_LOADED, AUTH_ERROR, LOGOUT } from './types';
 // import setAuthToken header 
 import setAuthToken from '../utils/setAuthToken';
 
@@ -13,9 +13,9 @@ export const loadUser = () => async dispatch => {
    setAuthToken(localStorage.token);
   } 
 
-    // If user has a token send rout
+    // If user has a token send route
   try {
-    const res = await axios.get('/app/auth');
+    const res = await axios.get('/api/auth');
 
     dispatch({
       type: USER_LOADED,
@@ -104,4 +104,10 @@ export const login = ({ email, password }) => async dispatch => {
       type: LOGIN_FAIL
     });
   }
+
 };
+
+//<------------ LOGOUT / CLEAR PROFILE ------>
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT });
+}
