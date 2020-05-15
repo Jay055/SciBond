@@ -17,6 +17,7 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 // Dashboard route 
 import Dashboard from './components/dashboard/Dashboard';
+import EditProfile from './components/profile-form/EditProfile';
 //
 import CreateProfile from './components/profile-form/CreateProfile';
 // Private route 
@@ -43,7 +44,7 @@ const App = () => {
   return (
   // Surround entire app with Provider so all components can access  
   <Provider store = {store}>
-  // React Router for links 
+   {/* React Router for links  */}
   <Router>
     <Fragment>
       <Navbar />
@@ -55,6 +56,7 @@ const App = () => {
           <Route exact path='/login' component={Login} />
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
           <PrivateRoute exact path='/create-profile' component={CreateProfile} />
+          <PrivateRoute exact path='/edit-profile' component={EditProfile} />
 
         </Switch>
       </section>

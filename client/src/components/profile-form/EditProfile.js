@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 // withRouter is used to get links from history (actions)
 import { Link, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile} from '../../actions/profile';
+// getCurrentProfile to prefill the fields 
+import { createProfile, getCurrentProfile} from '../../actions/profile';
 
 
-// Get createProfile and history from actions/profile through connect
-const CreateProfile = ({ createProfile, history }) => {
+// Get createProfile, getCurrentProfile and history from actions/profile through connect
+const EditProfile = ({ profile: { profile, loading}, createProfile, getCurrentProfile,  history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -26,6 +27,30 @@ const CreateProfile = ({ createProfile, history }) => {
   // Toggle Social Network links 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
+  // set Profile Fields  on load 
+  useEffect(()=> {
+    getCurrentProfile();
+
+    setFormData({
+      company: loading || !profile.company ? '' : profile.company,
+      website: loading || !profile.website ? '' : profile.website,
+      location: loading || !profile.location ? '' : profile.location,
+      status: loading || !profile.status ? '' : profile.status,
+      skills: loading || !profile.skills ? '' : profile.skills.join(','),
+      githubusername:
+        loading || !profile.githubusername ? '' : profile.githubusername,
+      bio: loading || !profile.bio ? '' : profile.bio,
+      twitter: loading || !profile.social ? '' : profile.social.twitter,
+      facebook: loading || !profile.social ? '' : profile.social.facebook,
+      linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+      youtube: loading || !profile.social ? '' : profile.social.youtube,
+      instagram: loading || !profile.social ? '' : profile.social.instagram
+    })
+    // Run when it loads 
+  }, [loading])
+
+
+  
   const {
     company,
     website,
@@ -46,15 +71,16 @@ const CreateProfile = ({ createProfile, history }) => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    // Create Profile on submit 
+    // Edit Profile on submit 
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
-  }
+    // edit true 
+    createProfile(formData, history, true);
+  };
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Create Your Profile</h1>
+      <h1 className='large text-primary'>Edit Your Profile</h1>
       <p className='lead'>
         <i className='fas fa-user' /> Let's get some information to make your
         profile stand out
@@ -219,8 +245,6 @@ const CreateProfile = ({ createProfile, history }) => {
         )}
 
         <input type='submit' className='btn btn-primary my-1' />
-        
-        
         <Link to='/dashboard' className='btn btn-light my-1' >
           Go Back
         </Link>
@@ -229,14 +253,21 @@ const CreateProfile = ({ createProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
+// Get Profile State from Profile reducer 
+const mapStateToProps = (state) => ({
+  profile: state.profile
+})
 
 // wrap the component (withRouter) to be able to use history.push,
 // without this we can't pass the history object and use it from the action
-export default connect(null, {createProfile})(withRouter(CreateProfile));
+// getCurrentProfile to prefill fields 
+export default connect(mapStateToProps, {createProfile, getCurrentProfile})(withRouter(EditProfile));
 
 
 // Import createProfile then connect to our redux store to use 

@@ -11,6 +11,7 @@ const Landing = ({ isAuthenticated }) => {
   }
 
   return (
+    <Fragment>
     <section className='landing'>
       <div className='dark-overlay'>
         <div className='landing-inner'>
@@ -30,6 +31,7 @@ const Landing = ({ isAuthenticated }) => {
         </div>
       </div>
     </section>
+    </Fragment>
   );
 };
 
