@@ -7,13 +7,16 @@ import { Link } from 'react-router-dom';
 // edit profile dashboard
 import DashboardActions from './DashboardActions';
 import { getCurrentProfile} from '../../actions/profile';
+import Experience from './Experience';
+import Education from './Education';
 
 
 
 
 
-// Destructure auth, profile (MSTP), and getCurrentProfile
+// Destructure auth, profile (MSTP), and getCurrentProfile from actions
 const Dashboard = ({getCurrentProfile, auth: {user}, profile: {profile, loading }}) => {
+ 
   useEffect(() => {
     getCurrentProfile();
   }, [])
@@ -28,6 +31,9 @@ const Dashboard = ({getCurrentProfile, auth: {user}, profile: {profile, loading 
       {profile !== null ? (
         <Fragment>
           <DashboardActions /> 
+          <Experience  experience={profile.experience}/>
+          <Education  education={profile.education}/>
+    
         </Fragment>
       ) : (
         <Fragment>
