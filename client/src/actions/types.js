@@ -12,6 +12,9 @@ export const LOGOUT = 'LOGOUT';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 
+// Clear profile on logout 
+export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+
 // ACTION FILE  for our requests, 
 // If response is successful Register success, 
 // Payload what is bundled in your actions and passed around between reducers in your redux application 
