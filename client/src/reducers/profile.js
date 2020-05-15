@@ -1,6 +1,6 @@
 // Get profile, update, delete 
 
-import {   GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from '../actions/types';
+import {   GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE } from '../actions/types';
 
 
 //  Set up initial profile state
@@ -19,13 +19,14 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    
     case GET_PROFILE:
+      case UPDATE_PROFILE:
     return { 
       ...state, 
       profile: payload,
       loading: false
     };
-
     case PROFILE_ERROR:
     return { 
       ...state, 
