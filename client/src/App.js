@@ -15,6 +15,10 @@ import store from './store';
 // import loadUserAction
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+// Dashboard route 
+import Dashboard from './components/dashboard/Dashboard';
+// Private route 
+import PrivateRoute from './components/routing/PrivateRoute';
 
 
 import './App.css';
@@ -47,6 +51,8 @@ const App = () => {
         <Switch>
           <Route exact path='/register' component={Register} />
           <Route exact path='/login' component={Login} />
+          <PrivateRoute exact path='/dashboard' component={Dashboard} />
+          
         </Switch>
       </section>
     </Fragment>
