@@ -21,7 +21,7 @@ const Dashboard = ({getCurrentProfile, deleteAccount, auth: {user}, profile: {pr
  
   useEffect(() => {
     getCurrentProfile();
-  }, [])
+  }, [getCurrentProfile])
 
   // If profile is null and loading is on show spinner 
   return loading && profile === null ? <Spinner /> : <Fragment>

@@ -47,7 +47,7 @@ const EditProfile = ({ profile: { profile, loading}, createProfile, getCurrentPr
       instagram: loading || !profile.social ? '' : profile.social.instagram
     })
     // Run when it loads 
-  }, [loading])
+  }, [loading, getCurrentProfile])
 
 
   
