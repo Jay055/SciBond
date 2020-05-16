@@ -8,6 +8,7 @@ import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
+import ProfileGithub from './ProfileGithub';
 
 
 
@@ -76,6 +77,10 @@ const Profile = ({
                 )}
               </div>
               
+                    {/* Add Github */}
+              {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )}
               
 
 
