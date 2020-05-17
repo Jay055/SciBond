@@ -29,25 +29,20 @@ const Register = ({register, setAlert, isAuthenticated}) => {
 
 
   // Submit Function 
-  const onSubmit = async e => { 
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if(password === password2){
-      // User our register reducer to register user
-      register({name, email, password});
-
-     // Redirect if logged in 
-     if(isAuthenticated) {
-      return <Redirect to="/dashboard" /> 
+    if (password !== password2) {
+      setAlert('Passwords do not match', 'danger');
+    } else {
+      register({ name, email, password });
     }
+  };
 
-      
-  
-    
-    }else {
-      // Call setAlert reducer   from props  
-    setAlert('Passwords do not match', 'danger');
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
   }
-}
+  
+
 
   return (
     <Fragment>
