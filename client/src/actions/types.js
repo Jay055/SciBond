@@ -25,6 +25,8 @@ export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const DELETE_POST = 'DELETE_POST';
 export const ADD_POST = 'ADD_POST';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 // ACTION FILE  for our requests, 
 // If response is successful Register success, 
 // Payload what is bundled in your actions and passed around between reducers in your redux application 
