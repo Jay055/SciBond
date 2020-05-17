@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
-import { addLike, removeLike ,deletePosts} from '../../actions/post';
+import { addLike, removeLike ,deletePost} from '../../actions/post';
 
 
 
@@ -11,16 +11,16 @@ import { addLike, removeLike ,deletePosts} from '../../actions/post';
 const PostItem = ({
   addLike,
   removeLike,
-  deletePosts,
+  deletePost,
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date }
 }) => (
   <div class='post bg-white p-1 my-1'>
     <div>
-      <a href='profile.html'>
+      <Link to={`/profile/${user}`}>
         <img class='round-img' src={avatar} alt='' />
         <h4>{name}</h4>
-      </a>
+      </Link>
     </div>
     <div>
       <p class='my-1'>{text}</p>
@@ -47,7 +47,7 @@ const PostItem = ({
           {/* Check if its the user who make the post for delete button  */}
       {!auth.loading && user === auth.user._id && (
         <button 
-        onClick = {e=> deletePosts(_id)}
+        onClick = {e=> deletePost(_id)}
         type='button' class='btn btn-danger'>
           <i class='fas fa-times' />
         </button>
@@ -61,7 +61,7 @@ PostItem.propTypes = {
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike:PropTypes.func.isRequired,
-  deletePosts:PropTypes.func.isRequired
+  deletePost:PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -70,5 +70,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {addLike, removeLike, deletePosts}
+  {addLike, removeLike, deletePost}
 )(PostItem);

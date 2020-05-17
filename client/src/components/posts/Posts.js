@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import { getPosts } from '../../actions/post';
+import PostForm, { postForm } from './PostForm';
 
 
 // Destructure from actions and reducers state 
@@ -22,11 +23,15 @@ const Posts = ({ getPosts, post: { posts, loading}}) => {
         <i className='fas fa-user' /> Welcome to the community
       </p>
       {/* PostForm */}
+      <PostForm />
       <div className='posts'>
           {/* Display all Posts with mapping */}
         {posts.map(post => (
+      <Fragment>
+    
 
-<PostItem key={post._id} post={post} />
+        <PostItem key={post._id} post={post} />
+        </Fragment>
         ))}
       </div>
     </Fragment>
