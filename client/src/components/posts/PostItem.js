@@ -7,13 +7,13 @@ import { addLike, removeLike ,deletePost} from '../../actions/post';
 
 
 
-// Destructure from posts and auth state 
+// Destructure from posts and auth state , showActions from default props 
 const PostItem = ({
   addLike,
   removeLike,
   deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date }
+  post: { _id, text, name, avatar, user, likes, comments, date }, showActions
 }) => (
   <div class='post bg-white p-1 my-1'>
     <div>
@@ -27,8 +27,9 @@ const PostItem = ({
       <p class='post-date'>
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
-
-      <button onClick={e => addLike(_id)} type='button' class='btn btn-light'>
+            {/* If showActions is true display buttons  */}
+        {showActions && <Fragment>
+          <button onClick={e => addLike(_id)} type='button' class='btn btn-light'>
         <i class='fas fa-thumbs-up' />{' '}
           {/* Display likes count if we have likes  */}
         <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
@@ -37,7 +38,8 @@ const PostItem = ({
       <button onClick={e => removeLike(_id)} type='button' class='btn btn-light'>
         <i class='fas fa-thumbs-down' />
       </button>
-      <Link to={`/post/${_id}`} class='btn btn-primary'>
+          {/* posts  */}
+      <Link to={`/posts/${_id}`} class='btn btn-primary'>
         Discussion{' '}
           {/* Display Comment count if we have comments  */}
         {comments.length > 0 && (
@@ -52,6 +54,10 @@ const PostItem = ({
           <i class='fas fa-times' />
         </button>
       )}
+          
+          
+          </Fragment>}      
+      
     </div>
   </div>
 );
@@ -64,9 +70,17 @@ PostItem.propTypes = {
   deletePost:PropTypes.func.isRequired
 };
 
+
+// Create Default Props to Display post without buttons 
+PostItem.defaultProps = { 
+  showActions: true 
+}
+
+
 const mapStateToProps = state => ({
   auth: state.auth
 });
+
 
 export default connect(
   mapStateToProps,

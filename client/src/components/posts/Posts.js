@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import { getPosts } from '../../actions/post';
-import PostForm, { postForm } from './PostForm';
+import PostForm from './PostForm';
 
 
 // Destructure from actions and reducers state 
