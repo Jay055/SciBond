@@ -22,6 +22,7 @@ export const UPDATE_LIKES = 'UPDATE_LIKES';
 
 // Clear profile on logout 
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+export const DELETE_POST = 'DELETE_POST';
 
 // ACTION FILE  for our requests, 
 // If response is successful Register success, 
