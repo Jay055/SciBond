@@ -9,16 +9,12 @@ import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 
 const Post = ({ getPost, post: { post, loading }, match }) => {
-  console.log(loading)
-  console.log(post)
-  console.log(getPost)
-  console.log(match);
+  
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost]);
 
-  console.log(loading)
-  console.log(post)  
+ 
   return loading || post === null ? (
     <Spinner />
 
@@ -29,7 +25,7 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
       </Link>
       <PostItem post={post} showActions={false} />
       <CommentForm postId = {post._id} />
-      {/*  Display Comments through looping */}
+      {/*  Display Comments through looping, always have keys  */}
       <div className = "comments">
         {post.comments.map(comment => (
           <CommentItem key = {comment._id} comment={comment} postId={post._id} /> 
