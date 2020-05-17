@@ -14,7 +14,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul>
         <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link to='/profiles'>Scientist Developers</Link>
       </li>
       <li>
         <Link to='/posts'>Posts</Link>
@@ -52,7 +52,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <nav className='navbar bg-dark'>
       <h1>
         <Link to='/'>
-          <i className='fas fa-code' /> DevConnector
+          <i className='fas fa-code' /> SciBond
         </Link>
       </h1>
       {!loading && (
