@@ -65,6 +65,7 @@ Dashboard.propTypes = {
 };
 
 
+
 // Get auth and profile from thier states 
 const mapStateToProps = state => ({
   auth: state.auth, 
